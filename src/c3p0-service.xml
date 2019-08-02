@@ -6,10 +6,10 @@
     <property name="user">root</property>
     <property name="password">ln122920</property>
  
-    <property name="initialPoolSize">30</property>
+    <property name="initialPoolSize">3</property>
     <property name="maxIdleTime">30</property>
-    <property name="maxPoolSize">30</property>
-    <property name="minPoolSize">30</property>
+    <property name="maxPoolSize">3</property>
+    <property name="minPoolSize">3</property>
   </named-config>
   <named-config name="db2">
     <property name="driverClass">com.mysql.cj.jdbc.Driver</property>

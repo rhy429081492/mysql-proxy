@@ -10,6 +10,10 @@ public class Exchange {
         int length = args.length;
         Class<?>[] types = new Class<?>[length];
         for(int i=0;i<length;i++) {
+            if(args[i] == null){
+                types[i] = String.class;
+                i++;
+            }
             String name = args[i].getClass().getName();
             if("java.lang.Boolean".equals(name)) {
                 types[i] = boolean.class;
