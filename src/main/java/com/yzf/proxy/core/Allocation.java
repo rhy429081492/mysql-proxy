@@ -29,7 +29,6 @@ public class Allocation extends Thread {
 					if(i>0) {
 						NioConnection nio = queue.poll();
 						nio.setConn(pool.getConnection());
-						nio.latch.countDown();
 					}
 				}catch (Exception e) {
 					e.printStackTrace();
