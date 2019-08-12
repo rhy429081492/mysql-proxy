@@ -15,13 +15,13 @@ public class ParameterMetaDataExecutor implements Executor {
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio = new ConnectionSet().getNioConnection(serverPacket.getId());
         Object[] args = serverPacket.getArgs();
         Class<?>[] types = Exchange.exchange(args);
         ParameterMetaData pmd = nio.getParameterMetaData(serverPacket.getSid());
         Class<?> clazz = pmd.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(pmd, args);
             packet.setId(nio.getId());
             packet.setSuccessful(true);

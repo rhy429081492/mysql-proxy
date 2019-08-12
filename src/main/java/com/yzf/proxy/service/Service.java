@@ -16,7 +16,7 @@ public class Service {
         ServerPacket serverPacket = new ServerPacket(data);
         ClientPacket clientPacket = new ClientPacket();
         if (serverPacket != null){
-            clientPacket = Deal.dealWith(serverPacket);
+            clientPacket = new Deal().dealWith(serverPacket);
         } else {
             clientPacket.setId(serverPacket.getId());
             clientPacket.setSuccessful(false);

@@ -17,13 +17,13 @@ public class DatabaseMetaDataExecutor implements Executor{
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio = new ConnectionSet().getNioConnection(serverPacket.getId());
         Object[] args = serverPacket.getArgs();
         Class<?>[] types = Exchange.exchange(args);
         DatabaseMetaData dbmd = nio.getDbmd();
         Class<?> clazz = dbmd.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(dbmd, args);
             if("getProcedures".equals(methodName)||//返回不可序列化对象的处理方法
                     "getProcedures".equals(methodName)||

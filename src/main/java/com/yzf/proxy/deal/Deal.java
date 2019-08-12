@@ -5,7 +5,7 @@ import com.yzf.proxy.packet.ClientPacket;
 import com.yzf.proxy.packet.ServerPacket;
 
 public class Deal {
-        public static ClientPacket dealWith(ServerPacket sp){
+        public ClientPacket dealWith(ServerPacket sp){
         ClientPacket clientPacket = new ClientPacket();
         Executor executor = null;
         String className = sp.getClassName();

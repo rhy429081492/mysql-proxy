@@ -48,6 +48,12 @@
 			<version>1.2.47</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>3.3.1</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

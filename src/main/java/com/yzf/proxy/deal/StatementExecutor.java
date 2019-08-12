@@ -15,13 +15,13 @@ public class StatementExecutor implements Executor {
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio = new ConnectionSet().getNioConnection(serverPacket.getId());
         Object[] args = serverPacket.getArgs();
         Class<?>[] types = Exchange.exchange(args);
         Statement st = nio.getStatement(serverPacket.getSid());
         Class<?> clazz = st.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(st, args);
             if("executeQuery".equals(methodName)||
                     "getResultSet".equals(methodName)||

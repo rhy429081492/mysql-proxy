@@ -14,13 +14,13 @@ public class ResultSetMetaDataExecutor implements Executor {
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio = new ConnectionSet().getNioConnection(serverPacket.getId());
         Object[] args = serverPacket.getArgs();
         Class<?>[] types = Exchange.exchange(args);
         ResultSetMetaData rsmd = nio.getResultSetMetaData(serverPacket.getSid());
         Class<?> clazz = rsmd.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(rsmd, args);
             packet.setId(nio.getId());
             packet.setSuccessful(true);

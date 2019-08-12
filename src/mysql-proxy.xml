@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+  <named-config name="db1">
+    <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/test1</property>
+    <property name="user">root</property>
+    <property name="password">ln122920</property>
+ 
+    <property name="initialPoolSize">30</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">30</property>
+    <property name="minPoolSize">30</property>
+  </named-config>
+  <named-config name="db2">
+    <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/test2</property>
+    <property name="user">root</property>
+    <property name="password">ln122920</property>
+ 
+    <property name="initialPoolSize">30</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">30</property>
+    <property name="minPoolSize">30</property>
+  </named-config>
+  <named-config name="db3">
+    <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/test3</property>
+    <property name="user">root</property>
+    <property name="password">ln122920</property>
+
+    <property name="initialPoolSize">30</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">30</property>
+    <property name="minPoolSize">30</property>
+  </named-config>
+  <named-config name="db4">
+    <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/test0</property>
+    <property name="user">root</property>
+    <property name="password">ln122920</property>
+
+    <property name="initialPoolSize">30</property>
+    <property name="maxIdleTime">30</property>
+    <property name="maxPoolSize">30</property>
+    <property name="minPoolSize">30</property>
+  </named-config>
+</c3p0-config>

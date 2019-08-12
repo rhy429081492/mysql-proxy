@@ -18,11 +18,11 @@ public class DriverExecutor implements Executor{
             str[2] = (String) spacket.getArgs()[2];
             //获取连接参数
             NioConnection nio = new NioConnection();
-            int id = ConnectionSet.addNioConnection(nio);
+            int id = new ConnectionSet().addNioConnection(nio);
             //获取服务器线程号
             nio.setId(id);
             //设置线程号
-            ProxyCore.addNioConnection(str[0],str[1],str[2], nio);
+            ProxyCore.getNioConnection(str[0],str[1],str[2], nio);
             //连接请求加入队列
             while(true){
                 if(nio.getConn() != null){

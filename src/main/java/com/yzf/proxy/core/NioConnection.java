@@ -121,7 +121,7 @@ public class NioConnection {//一个服务器镜像
 		if (this.conn != null){
 			if (System.currentTimeMillis()-this.dateTime >  MAXTIME){
 				this.conn.close();
-				ConnectionSet.removeNioCOnnection(this.id);
+				new ConnectionSet().removeNioCOnnection(this.id);
 			}
 		}
 	}

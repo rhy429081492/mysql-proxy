@@ -9,8 +9,7 @@ import java.io.File;
 @Configuration
 public class ProxyServer {
         public ProxyServer(){
-            File file = new File("src/c3p0-service.xml");
-            System.setProperty("com.mchange.v2.c3p0.cfg.xml","src/c3p0-service.xml");
+            File file = new File("src/mysql-proxy.xml");
             try{
                 ProxyCore.initialProxyCore(file);
             }catch (Exception e){

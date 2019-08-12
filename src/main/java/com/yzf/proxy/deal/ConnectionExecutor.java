@@ -19,7 +19,7 @@ public class ConnectionExecutor implements Executor{
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio =new ConnectionSet().getNioConnection(serverPacket.getId());
         if(methodName.equals("isClosed")&&nio == null){
             packet.setId(serverPacket.getId());
             packet.setSuccessful(true);
@@ -32,7 +32,7 @@ public class ConnectionExecutor implements Executor{
         Connection conn = nio.getConn();
         Class<?> clazz = conn.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(conn, args);
             if(methodName.equals("createStatement")) {
                 int sid = nio.addStatement((Statement)o);
@@ -59,7 +59,7 @@ public class ConnectionExecutor implements Executor{
                 packet.setReturnObject(null);
                 packet.setErrorInfo("");
             } else if(methodName.equals("close")){
-                ConnectionSet.removeNioCOnnection(serverPacket.getId());
+                new ConnectionSet().removeNioCOnnection(serverPacket.getId());
                 packet.setId(nio.getId());
                 packet.setSuccessful(true);
                 packet.setReturnObject(null);

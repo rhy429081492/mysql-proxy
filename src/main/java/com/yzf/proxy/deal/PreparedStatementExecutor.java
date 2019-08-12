@@ -17,13 +17,13 @@ public class PreparedStatementExecutor implements Executor {
     public ClientPacket execute(ServerPacket serverPacket) {
         ClientPacket packet = new ClientPacket();
         String methodName = serverPacket.getMethodName();
-        NioConnection nio = ConnectionSet.getNioConnection(serverPacket.getId());
+        NioConnection nio = new ConnectionSet().getNioConnection(serverPacket.getId());
         Object[] args = serverPacket.getArgs();
         Class<?>[] types = Exchange.exchange(args);
         PreparedStatement pst = nio.getPreparedStatement(serverPacket.getSid());
         Class<?> clazz = pst.getClass();
         try {
-            Method m = clazz.getDeclaredMethod(methodName, types);
+            Method m = clazz.getMethod(methodName, types);
             Object o = m.invoke(pst, args);
             if("executeQuery".equals(methodName)) {
                 int id = nio.addResultSet((ResultSet) o);
