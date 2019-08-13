@@ -124,7 +124,7 @@ public class NioConnection {//一个服务器镜像
 				new ConnectionSet().removeNioCOnnection(this.id);
 			}
 		}
-	}
+	}//空闲连接检测
 
 	private class StatementInfo{
 		Statement st;

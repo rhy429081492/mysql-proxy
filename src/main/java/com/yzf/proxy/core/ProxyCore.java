@@ -13,7 +13,6 @@ import java.util.*;
 
 public class ProxyCore {
 	private static Set<Pool> pools = new HashSet<Pool>();//连接池
-//	private static Map<ConnectionInfo, Allocation> map = new HashMap<ConnectionInfo, Allocation>();//访问队列队列
 	private static Map<ConnectionInfo, DataSource> map = new HashMap<ConnectionInfo, DataSource>();
 	private ProxyCore() {
 	}
@@ -31,57 +30,44 @@ public class ProxyCore {
 			for (Element element : elements1) {
 				map.put(element.attributeValue("name"), element.getText());
 			}
+				//获取连接数据
 				pool.url = map.get("jdbcUrl");
 				pool.user = map.get("user");
 				pool.password = map.get("password");
 				//解析配置文件，获取连接信息
 				pool.dataSource = new HikariDataSource(new HikariConfig("src/"+pool.name+".properties"));
-				//使用c3p0解析配置，获取datasource
+				//HikariCP连接池获取datasource
 				UrlInfo ui = new UrlInfo(pool.url);
 				pool.database = ui.database;
 				pools.add(pool);
 				//存储新建连接池
 		}
 		for (Pool pool : pools) {
+			//创建连接信息
 			ConnectionInfo info = new ConnectionInfo();
 			info.user = pool.user;
 			info.database = pool.database;
 			info.password = pool.password;
-			//Allocation all = new Allocation(pool.dataSource);
-			//新建连接池访问队列
+			//存储数据源
 			map.put(info, pool.dataSource);
-			//存储队列
-			//all.start();
-			//队列检测执行
 		}
 	}
 
-//	/**
-//	 *	连接请求加入队列
-//	 * @param database 数据库名
-//	 * @param user	用户名
-//	 * @param password 密码
-//	 * @param nio 服务器连接镜像类
-//	 */
-//	public static void addNioConnection(String database, String user, String password, NioConnection nio) {
-//		ConnectionInfo info = new ConnectionInfo();
-//		info.database = database;
-//		info.user = user;
-//		info.password = password;
-//		//连接信息创建
-//		Allocation all = map.get(info);
-//		//获取目标队列
-//		all.addNioConnection(nio);
-//		//请求入队列
-//	}
+	/**
+	 * 获取连接
+	 * @param database 数据库名
+	 * @param user	用户名
+	 * @param password 密码
+	 * @param nio 服务器镜像连接对象
+	 */
 	public static void getNioConnection(String database, String user, String password, NioConnection nio) {
 		ConnectionInfo info = new ConnectionInfo();
 		info.database = database;
 		info.user = user;
-		info.password = password;
-		DataSource dataSource = map.get(info);
+		info.password = password;//连接信息创建
+		DataSource dataSource = map.get(info);//获取数据源
 		try{
-			nio.setConn(dataSource.getConnection());
+			nio.setConn(dataSource.getConnection());//设置连接
 		}catch (Exception e){
 			e.printStackTrace();
 		}
