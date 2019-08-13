@@ -13,9 +13,9 @@ public class DriverExecutor implements Executor{
         ClientPacket packet = new ClientPacket();
         if (spacket.getMethodName().equals("connect")){
             String[] str = new String[3];
-            str[0] = (String) spacket.getArgs()[0];
-            str[1] = (String) spacket.getArgs()[1];
-            str[2] = (String) spacket.getArgs()[2];
+            str[0] = (String) spacket.getArgs()[0];//database
+            str[1] = (String) spacket.getArgs()[1];//user
+            str[2] = (String) spacket.getArgs()[2];//password
             //获取连接参数
             NioConnection nio = new NioConnection();
             int id = new ConnectionSet().addNioConnection(nio);
